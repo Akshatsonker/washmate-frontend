@@ -8,6 +8,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://washmate-frontend-9f59.vercel.app'),
   title: 'WashMate - Laundry Management Platform',
   description: 'Manage your laundry orders with ease. Connect with local laundry vendors for fast, reliable service.',
   manifest: '/manifest.json',
