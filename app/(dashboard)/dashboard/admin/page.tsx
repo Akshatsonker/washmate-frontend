@@ -176,7 +176,7 @@ export default function AdminDashboard() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">${order.price.toFixed(2)}</p>
+                        <p className="font-semibold">₹{order.price.toFixed(2)}</p>
                         <Badge variant="outline" className="text-xs mt-1">
                           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </Badge>

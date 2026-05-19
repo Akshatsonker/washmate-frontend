@@ -37,6 +37,9 @@ export default function DownloadPage() {
     
     if (outcome === 'accepted') {
       console.log('User accepted the install prompt');
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1500);
     } else {
       console.log('User dismissed the install prompt');
     }

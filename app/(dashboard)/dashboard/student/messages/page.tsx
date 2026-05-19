@@ -128,7 +128,7 @@ export default function StudentMessagesPage() {
                             </div>
                             <div className="text-right">
                               <p className="font-semibold text-gray-900">
-                                ${selectedOrder.price?.toFixed(2) || '0.00'}
+                                ₹{selectedOrder.price?.toFixed(2) || '0.00'}
                               </p>
                               <Link href={`/dashboard/student/orders/${getId(selectedOrder)}`}>
                                 <button className="text-xs text-blue-600 hover:underline mt-2">

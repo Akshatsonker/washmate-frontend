@@ -138,7 +138,7 @@ export default function StudentOrdersPage() {
                             </div>
                             <div className="text-right">
                               <p className="text-lg font-semibold text-gray-900">
-                                ${order.price.toFixed(2)}
+                                ₹{order.price.toFixed(2)}
                               </p>
                               <p className="text-sm text-gray-500">{order.quantity} kg/items</p>
                             </div>
@@ -182,7 +182,7 @@ export default function StudentOrdersPage() {
                             </div>
                             <div className="text-right">
                               <p className="text-lg font-semibold text-gray-900">
-                                ${order.price.toFixed(2)}
+                                ₹{order.price.toFixed(2)}
                               </p>
                             </div>
                           </div>
@@ -225,7 +225,7 @@ export default function StudentOrdersPage() {
                             </div>
                             <div className="text-right">
                               <p className="text-lg font-semibold text-gray-900">
-                                ${order.price.toFixed(2)}
+                                ₹{order.price.toFixed(2)}
                               </p>
                             </div>
                           </div>

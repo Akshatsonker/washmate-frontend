@@ -106,7 +106,7 @@ export default function StudentDashboard() {
                   </div>
                   <p className="text-xs text-gray-500 font-medium">Spent</p>
                 </div>
-                <p className="text-3xl font-bold text-purple-600">${totalSpent.toFixed(0)}</p>
+                <p className="text-3xl font-bold text-purple-600">₹{totalSpent.toFixed(0)}</p>
                 <p className="text-xs text-gray-400 mt-1">total amount</p>
               </div>
 
@@ -210,7 +210,7 @@ export default function StudentDashboard() {
 
                           <div className="text-right">
                             <p className="font-bold text-gray-900 text-sm">
-                              ${order.price?.toFixed(2)}
+                              ₹{order.price?.toFixed(2)}
                             </p>
                             <span className={`text-xs px-2 py-0.5 rounded-full border font-medium mt-1 inline-block ${getStatusColor(order.status)}`}>
                               {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}

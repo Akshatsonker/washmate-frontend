@@ -22,11 +22,17 @@ export default function LoginPage() {
   const [roomNumber, setRoomNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
     // ✅ Clear session and init data ONCE on mount
     clearSession();
     initializeMockData();
+
+    // Check if running as PWA
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) {
+      setIsStandalone(true);
+    }
   }, []); // ← empty deps, runs only once
 
   useEffect(() => {
@@ -145,12 +151,29 @@ export default function LoginPage() {
             </a>
           </p>
 
-          <div className="mt-4 pt-4 border-t border-gray-200 text-center">
-            <p className="text-sm text-gray-600 mb-2">Want a better experience?</p>
-            <a href="/download" className="inline-flex items-center justify-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-md font-medium text-sm hover:bg-indigo-100 transition-colors">
-              📱 Download WashMate App
-            </a>
-          </div>
+          {!isStandalone && (
+            <div className="mt-4 pt-4 border-t border-gray-200 text-center">
+              <p className="text-sm text-gray-600 mb-4">Want a better experience?</p>
+
+              <div className="hidden sm:flex flex-col items-center mb-4">
+                <div className="bg-white p-2 rounded-lg border border-gray-200 shadow-sm">
+                  <Image 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://washmate-frontend-9f59.vercel.app/download`}
+                    alt="Scan to Download App"
+                    width={100}
+                    height={100}
+                    className="rounded"
+                    unoptimized
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-2">Scan QR to install app on phone</p>
+              </div>
+
+              <a href="/download" className="inline-flex items-center justify-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-md font-medium text-sm hover:bg-indigo-100 transition-colors">
+                📱 Download WashMate App
+              </a>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

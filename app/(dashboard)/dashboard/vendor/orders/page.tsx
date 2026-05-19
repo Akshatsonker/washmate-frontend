@@ -129,7 +129,7 @@ export default function VendorOrdersPage() {
           </div>
 
           <p className="mt-2">{order.serviceType}</p>
-          <p>${order.price}</p>
+          <p>₹{order.price}</p>
 
           <Badge className={getStatusColor(order.status)}>
             {order.status}

@@ -132,10 +132,10 @@ export default function VendorOrderDetailPage() {
               <CardTitle className="text-lg">Order Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="col-span-1 sm:col-span-2">
                   <h3 className="font-semibold text-gray-900 border-b pb-2 mb-2">Customer Details</h3>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                       <p className="text-sm text-gray-500">Contact Number</p>
                       <p className="font-medium">{order.mobileNumber || 'N/A'}</p>
@@ -150,7 +150,7 @@ export default function VendorOrderDetailPage() {
                     </div>
                   </div>
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <h3 className="font-semibold text-gray-900 border-b pb-2 mb-2 mt-2">Order Details</h3>
                 </div>
                 <div>
@@ -192,11 +192,11 @@ export default function VendorOrderDetailPage() {
             </CardHeader>
             <CardContent>
               {order.status === 'placed' && (
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button
                     onClick={() => handleUpdateStatus('accepted')}
                     disabled={btnLoading}
-                    className="bg-green-600 hover:bg-green-700"
+                    className="bg-green-600 hover:bg-green-700 w-full sm:w-auto"
                   >
                     Accept Order
                   </Button>
@@ -204,6 +204,7 @@ export default function VendorOrderDetailPage() {
                     onClick={() => handleUpdateStatus('rejected')}
                     disabled={btnLoading}
                     variant="destructive"
+                    className="w-full sm:w-auto"
                   >
                     Reject Order
                   </Button>

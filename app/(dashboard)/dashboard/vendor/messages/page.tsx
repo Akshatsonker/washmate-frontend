@@ -111,9 +111,9 @@ export default function VendorMessagesPage() {
                             </div>
 
                             <div className="text-right">
-                              <p className="font-semibold text-gray-900">
-                                ${selectedOrder.price}
-                              </p>
+                              <span className="font-medium text-gray-900">
+                                ₹{selectedOrder.price}
+                              </span>
 
                               <Link href={`/dashboard/vendor/orders`}>
                                 <button className="text-xs text-blue-600 mt-2 hover:underline">
