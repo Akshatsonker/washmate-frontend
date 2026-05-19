@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'  // ← Add Viewport import
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import PwaRegister from '@/components/shared/PwaRegister'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -9,6 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'WashMate - Laundry Management Platform',
   description: 'Manage your laundry orders with ease. Connect with local laundry vendors for fast, reliable service.',
+  manifest: '/manifest.json',
   keywords: 'laundry, on-demand, order management, cleaning service',
   icons: {
     icon: [
@@ -46,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
+        <PwaRegister />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/hooks/useAuth';
@@ -53,9 +54,9 @@ export function Sidebar() {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="p-6 border-b border-blue-500">
-        <h1 className="text-2xl font-bold">🧺 WashMate</h1>
-        <p className="text-xs text-blue-100 mt-1">
+      <div className="p-6 border-b border-blue-500 flex flex-col items-center">
+        <Image src="/logo.jpeg" alt="WashMate Logo" width={180} height={60} className="w-auto h-16 object-contain" priority />
+        <p className="text-xs text-blue-100 mt-2 text-center">
           {user?.role === 'student' && 'Student Dashboard'}
           {user?.role === 'vendor' && 'Vendor Dashboard'}
           {user?.role === 'admin' && 'Admin Dashboard'}
@@ -107,7 +108,7 @@ export function Sidebar() {
     <>
       {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-blue-600 text-white flex items-center justify-between px-4 py-3">
-        <h1 className="text-xl font-bold">🧺 WashMate</h1>
+        <Image src="/logo.jpeg" alt="WashMate Logo" width={120} height={40} className="w-auto h-8 object-contain" />
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="text-2xl focus:outline-none"

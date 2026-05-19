@@ -3,6 +3,7 @@
 import { storage } from '@/lib/utils/storage';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -59,7 +60,9 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-2">
-          <div className="text-3xl font-bold text-center mb-2">🧺 WashMate</div>
+          <div className="flex justify-center mb-4">
+            <Image src="/logo.jpeg" alt="WashMate Logo" width={250} height={80} className="w-auto h-24 object-contain" priority />
+          </div>
           <CardTitle className="text-center">Welcome Back</CardTitle>
           <CardDescription className="text-center">
             Sign in to manage your laundry orders
