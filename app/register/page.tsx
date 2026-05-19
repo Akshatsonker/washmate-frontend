@@ -12,7 +12,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const { isAuthenticated, register } = useAuth();
 
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', mobileNumber: '', address: '', roomNumber: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -26,7 +26,7 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
 
-    const result = await register(form.email, form.password, form.name);
+    const result = await register(form.email, form.password, form.name, form.mobileNumber, form.address, form.roomNumber);
 
     if (result?.success) {
       // ✅ Auto-login after register — goes straight to dashboard
@@ -79,6 +79,39 @@ export default function RegisterPage() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 disabled={loading}
                 required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Mobile Number</label>
+              <Input
+                type="tel"
+                placeholder="Your mobile number"
+                value={form.mobileNumber}
+                onChange={(e) => setForm({ ...form, mobileNumber: e.target.value })}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Address</label>
+              <Input
+                type="text"
+                placeholder="Your address"
+                value={form.address}
+                onChange={(e) => setForm({ ...form, address: e.target.value })}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Room Number</label>
+              <Input
+                type="text"
+                placeholder="Your room number"
+                value={form.roomNumber}
+                onChange={(e) => setForm({ ...form, roomNumber: e.target.value })}
+                disabled={loading}
               />
             </div>
 

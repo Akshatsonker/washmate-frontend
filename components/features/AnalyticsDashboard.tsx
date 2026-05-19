@@ -66,7 +66,7 @@ export function AnalyticsDashboard({ orders }) {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-blue-600">
-              ${analytics.totalRevenue.toFixed(2)}
+              ₹{analytics.totalRevenue.toFixed(2)}
             </p>
             <p className="text-xs text-gray-500 mt-1">From completed orders</p>
           </CardContent>
@@ -100,7 +100,7 @@ export function AnalyticsDashboard({ orders }) {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-orange-600">
-              ${analytics.totalOrders > 0 
+              ₹{analytics.totalOrders > 0 
                 ? (analytics.totalRevenue / analytics.totalOrders).toFixed(2)
                 : '0.00'
               }
@@ -144,7 +144,7 @@ export function AnalyticsDashboard({ orders }) {
                   <YAxis />
                   <Tooltip
                     contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb' }}
-                    formatter={(value) => `$${value.toFixed(2)}`}
+                    formatter={(value) => `₹${value.toFixed(2)}`}
                   />
                   <Bar dataKey="revenue" fill="#3b82f6" radius={[8, 8, 0, 0]} />
                 </BarChart>

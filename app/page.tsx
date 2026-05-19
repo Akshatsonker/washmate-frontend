@@ -16,6 +16,9 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [roomNumber, setRoomNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -38,7 +41,7 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const success = await login(email, password);
+      const success = await login(email, password, mobileNumber, address, roomNumber);
       if (success) {
         router.replace('/dashboard');
       } else {
@@ -78,6 +81,39 @@ export default function LoginPage() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Mobile Number</label>
+              <Input
+                type="tel"
+                placeholder="Your mobile number"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Address</label>
+              <Input
+                type="text"
+                placeholder="Your address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Room Number</label>
+              <Input
+                type="text"
+                placeholder="Your room number"
+                value={roomNumber}
+                onChange={(e) => setRoomNumber(e.target.value)}
                 disabled={loading}
               />
             </div>

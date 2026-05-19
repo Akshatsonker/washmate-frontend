@@ -289,9 +289,14 @@ export default function VendorDashboard() {
                   pendingOrders.map(order => (
                     <div key={getId(order)} className="border p-4 rounded mb-3">
                       <p><b>{order.studentName}</b></p>
-                      <p>{order.serviceType}</p>
-                      <p>{order.quantity} items</p>
-                      <p>₹{order.price}</p>
+                      <div className="text-sm text-gray-600 my-2 space-y-1">
+                        <p>📞 {order.mobileNumber || 'N/A'}</p>
+                        <p>📍 {order.address || 'N/A'}</p>
+                        <p>🚪 Room: {order.roomNumber || 'N/A'}</p>
+                      </div>
+                      <p className="mt-2 text-gray-800">{order.serviceType}</p>
+                      <p className="text-gray-800">{order.quantity} items</p>
+                      <p className="font-medium">₹{order.price}</p>
                     </div>
                   ))
                 )}

@@ -122,7 +122,13 @@ export default function VendorOrdersPage() {
             {order.studentName || "Unknown user"}
           </p>
 
-          <p>{order.serviceType}</p>
+          <div className="text-sm text-gray-600 my-2 space-y-1">
+            <p>📞 {order.mobileNumber || 'N/A'}</p>
+            <p>📍 {order.address || 'N/A'}</p>
+            <p>🚪 Room: {order.roomNumber || 'N/A'}</p>
+          </div>
+
+          <p className="mt-2">{order.serviceType}</p>
           <p>${order.price}</p>
 
           <Badge className={getStatusColor(order.status)}>

@@ -5,25 +5,34 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import { useOrders } from '@/lib/hooks/useOrders';
 import { mockVendors } from '@/lib/utils/mockData';
 
 const serviceTypes = [
-  { value: 'washing', label: 'Regular Washing', price: 5 },
-  { value: 'ironing', label: 'Ironing Service', price: 6 },
-  { value: 'blankets', label: 'Blanket Cleaning', price: 15 },
-  { value: 'dry-clean', label: 'Dry Cleaning', price: 8 },
-  { value: 'express', label: 'Express Service', price: 10 },
+  { value: 'appron_press', label: 'Appron (Press)', price: 20 },
+  { value: 'appron_without_press', label: 'Appron (Without Press)', price: 15 },
+  { value: 'shirt_press', label: 'Shirt (Press)', price: 15 },
+  { value: 'shirt_without_press', label: 'Shirt (Without Press)', price: 10 },
+  { value: 'pant_press', label: 'Pant (Press)', price: 15 },
+  { value: 'pant_without_press', label: 'Pant (Without Press)', price: 10 },
+  { value: 'kurti_press', label: 'Kurti (Press)', price: 15 },
+  { value: 'kurti_without_press', label: 'Kurti (Without Press)', price: 10 },
+  { value: 'tshirt_press', label: 'Tshirt (Press)', price: 12 },
+  { value: 'tshirt_without_press', label: 'Tshirt (Without Press)', price: 10 },
+  { value: 'lower_shorts', label: 'Lower/Shorts', price: 10 },
+  { value: 'bedsheet', label: 'Bedsheet', price: 15 },
+  { value: 'curtains_press', label: 'Curtains (Press)', price: 30 },
+  { value: 'curtains_without_press', label: 'Curtains (Without Press)', price: 15 },
+  { value: 'shoes', label: 'Shoes', price: 50 },
+  { value: 'bag', label: 'Bag', price: 50 },
 ];
 
-export function OrderForm({ userId, userName, onOrderCreated }) {
+export function OrderForm({ userId, userName, userMobile, userAddress, userRoom, onOrderCreated }) {
   const { createOrder } = useOrders();
-  const [serviceType, setServiceType] = useState('washing');
+  const [serviceType, setServiceType] = useState('appron_press');
   const [quantity, setQuantity] = useState(1);
   const [selectedVendorId, setSelectedVendorId] = useState('vendor-1');
   const [pickupDate, setPickupDate] = useState('');
-  const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
 
   const selectedService = serviceTypes.find(s => s.value === serviceType);
@@ -32,7 +41,7 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!pickupDate ) {
+    if (!pickupDate) {
       alert('Please fill all required fields');
       return;
     }
@@ -44,6 +53,9 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
     const order = createOrder({
       studentId: userId,
       studentName: userName,
+      mobileNumber: userMobile,
+      address: userAddress,
+      roomNumber: userRoom,
       vendorId: selectedVendorId,
       vendorName: selectedVendor?.name || '',
       serviceType,
@@ -52,17 +64,15 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
       pickupDate: new Date(pickupDate),
       deliveryDate,
       price,
-      notes: notes || undefined,
     });
 
     setLoading(false);
     if (order) {
       alert('Order created successfully!');
-      setServiceType('washing');
+      setServiceType('appron_press');
       setQuantity(1);
       setSelectedVendorId('');
       setPickupDate('');
-      setNotes('');
       onOrderCreated?.();
     }
   };
@@ -84,7 +94,7 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
               <SelectContent>
                 {serviceTypes.map((service) => (
                   <SelectItem key={service.value} value={service.value}>
-                    {service.label} - ${service.price}/item
+                    {service.label} - ₹{service.price}/item
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -134,17 +144,6 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
             />
           </div>
 
-          {/* Notes */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Special Instructions</label>
-            <Textarea
-              placeholder="Any special handling instructions or preferences?"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={3}
-            />
-          </div>
-
           {/* Vendor Info */}
           {selectedVendor && (
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -163,11 +162,11 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
           <div className="bg-gray-50 rounded-lg p-4 space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Service Fee:</span>
-              <span className="font-medium">${(selectedService?.price || 0).toFixed(2)} × {quantity}</span>
+              <span className="font-medium">₹{(selectedService?.price || 0).toFixed(2)} × {quantity}</span>
             </div>
             <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
               <span className="font-semibold text-gray-900">Total Amount:</span>
-              <span className="text-xl font-bold text-blue-600">${price.toFixed(2)}</span>
+              <span className="text-xl font-bold text-blue-600">₹{price.toFixed(2)}</span>
             </div>
           </div>
 
@@ -181,11 +180,10 @@ export function OrderForm({ userId, userName, onOrderCreated }) {
               variant="outline"
               className="flex-1"
               onClick={() => {
-                setServiceType('washing');
+                setServiceType('appron_press');
                 setQuantity(1);
                 setSelectedVendorId('');
                 setPickupDate('');
-                setNotes('');
               }}
             >
               Clear

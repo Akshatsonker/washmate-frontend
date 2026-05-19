@@ -23,7 +23,16 @@ export default function VendorSettingsPage() {
   const [selectedServices, setSelectedServices] = useState<string[]>(vendor?.services || []);
   const [saving, setSaving] = useState(false);
 
-  const allServices = ['washing', 'ironing', 'blankets', 'dry-clean', 'express'];
+  const allServices = [
+    'appron_press', 'appron_without_press',
+    'shirt_press', 'shirt_without_press',
+    'pant_press', 'pant_without_press',
+    'kurti_press', 'kurti_without_press',
+    'tshirt_press', 'tshirt_without_press',
+    'lower_shorts', 'bedsheet',
+    'curtains_press', 'curtains_without_press',
+    'shoes', 'bag'
+  ];
 
   const handleToggleService = (service: string) => {
     if (selectedServices.includes(service)) {
@@ -154,7 +163,7 @@ export default function VendorSettingsPage() {
                         className="w-4 h-4 text-blue-600"
                       />
                       <span className="ml-3 font-medium text-gray-900">
-                        {service.charAt(0).toUpperCase() + service.slice(1).replace('-', ' ')}
+                        {service.charAt(0).toUpperCase() + service.slice(1).replace(/_/g, ' ')}
                       </span>
                     </label>
                   ))}
@@ -164,7 +173,7 @@ export default function VendorSettingsPage() {
                   <div className="flex flex-wrap gap-2 mt-4">
                     {selectedServices.map((service) => (
                       <Badge key={service} variant="secondary">
-                        {service.charAt(0).toUpperCase() + service.slice(1).replace('-', ' ')}
+                        {service.charAt(0).toUpperCase() + service.slice(1).replace(/_/g, ' ')}
                       </Badge>
                     ))}
                   </div>

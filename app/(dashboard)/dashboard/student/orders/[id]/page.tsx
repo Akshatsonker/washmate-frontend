@@ -25,11 +25,19 @@ export default function OrderDetailPage() {
 
   const order = orders.find(o => (o._id === orderId || o.id === orderId));
 
-  // ✅ DELIVERY DATE (+5 days)
-  const getDeliveryDate = (pickupDate: string) => {
-    const date = new Date(pickupDate);
-    date.setDate(date.getDate() + 5);
-    return date;
+  // ✅ SAFE DATE PARSING
+  const formatDate = (dateStr: string | Date | undefined) => {
+    if (!dateStr) return 'N/A';
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? 'N/A' : d.toLocaleDateString();
+  };
+
+  const formatDeliveryDate = (dateStr: string | Date | undefined) => {
+    if (!dateStr) return 'N/A';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return 'N/A';
+    d.setDate(d.getDate() + 5);
+    return d.toLocaleDateString();
   };
 
   const getStatusColor = (status: string) => {
@@ -119,10 +127,10 @@ export default function OrderDetailPage() {
             {/* Helpline */}
             <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded">
               <p className="text-sm text-gray-700">
-                📞 Need help? Contact us at:
+                📞 Need help? Contact Keshav at:
               </p>
               <p className="font-semibold text-blue-600">
-                +91 9876543210
+                +91 62074 83176
               </p>
             </div>
 
@@ -153,7 +161,7 @@ export default function OrderDetailPage() {
                   <div>
                     <p className="text-sm text-gray-600">Price per Unit</p>
                     <p className="font-semibold text-gray-900">
-                      {order.quantity
+                      ₹{order.quantity
                         ? (order.price / order.quantity).toFixed(2)
                         : "0.00"}
                     </p>
@@ -162,7 +170,7 @@ export default function OrderDetailPage() {
                   <div>
                     <p className="text-sm text-gray-600">Total Amount</p>
                     <p className="font-semibold text-xl text-blue-600">
-                      ${order.price.toFixed(2)}
+                      ₹{order.price.toFixed(2)}
                     </p>
                   </div>
 
@@ -184,16 +192,23 @@ export default function OrderDetailPage() {
                   </div>
 
                   <div>
+                    <p className="text-sm text-gray-600">Location</p>
+                    <p className="font-semibold text-gray-900">
+                      Shop near Mega Mess
+                    </p>
+                  </div>
+
+                  <div>
                     <p className="text-sm text-gray-600">Pickup Date</p>
                     <p className="font-semibold text-gray-900">
-                      {new Date(order.pickupDate).toLocaleDateString()}
+                      {formatDate(order.pickupDate)}
                     </p>
                   </div>
 
                   <div>
                     <p className="text-sm text-gray-600">Expected Delivery</p>
                     <p className="font-semibold text-gray-900">
-                      {getDeliveryDate(order.pickupDate).toLocaleDateString()}
+                      {formatDeliveryDate(order.pickupDate)}
                     </p>
                   </div>
 

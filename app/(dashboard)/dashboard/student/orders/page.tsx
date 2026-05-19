@@ -71,6 +71,9 @@ export default function StudentOrdersPage() {
               <OrderForm
                 userId={user.id}
                 userName={user.name}
+                userMobile={user.mobileNumber}
+                userAddress={user.address}
+                userRoom={user.roomNumber}
                 onOrderCreated={() => {
                   setShowForm(false);
                   refetch();

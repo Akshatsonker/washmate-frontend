@@ -133,6 +133,26 @@ export default function VendorOrderDetailPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <h3 className="font-semibold text-gray-900 border-b pb-2 mb-2">Customer Details</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Contact Number</p>
+                      <p className="font-medium">{order.mobileNumber || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Address</p>
+                      <p className="font-medium">{order.address || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Room Number</p>
+                      <p className="font-medium">{order.roomNumber || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-2">
+                  <h3 className="font-semibold text-gray-900 border-b pb-2 mb-2 mt-2">Order Details</h3>
+                </div>
                 <div>
                   <p className="text-sm text-gray-500">Service</p>
                   <p className="font-medium capitalize">{order.serviceType}</p>
@@ -148,9 +168,11 @@ export default function VendorOrderDetailPage() {
                 <div>
                   <p className="text-sm text-gray-500">Pickup Date</p>
                   <p className="font-medium">
-                    {order.pickupDate
-                      ? new Date(order.pickupDate).toLocaleDateString()
-                      : 'N/A'}
+                    {(() => {
+                      if (!order.pickupDate) return 'N/A';
+                      const d = new Date(order.pickupDate);
+                      return isNaN(d.getTime()) ? 'N/A' : d.toLocaleDateString();
+                    })()}
                   </p>
                 </div>
               </div>
