@@ -26,8 +26,7 @@ export default function SignInPage() {
   const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
-    // ✅ Clear session and init data ONCE on mount
-    clearSession();
+    // Initialize mock data if not present
     initializeMockData();
 
     // Check if running as PWA
