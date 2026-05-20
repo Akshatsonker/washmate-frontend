@@ -106,14 +106,33 @@ export function OrderForm({ userId, userName, userMobile, userAddress, userRoom,
             <label className="block text-sm font-medium text-gray-700">
               Quantity (kg/items) *
             </label>
-            <Input
-              type="number"
-              min="1"
-              max="100"
-              value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-              placeholder="Enter quantity"
-            />
+            <div className="flex items-center space-x-3">
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="w-12 h-12 text-xl font-medium rounded-full shadow-sm hover:bg-gray-100 flex items-center justify-center"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                -
+              </Button>
+              <Input
+                type="number"
+                min="1"
+                max="100"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                className="text-center font-bold text-lg h-12 flex-1 shadow-sm"
+                placeholder="Qty"
+              />
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="w-12 h-12 text-xl font-medium rounded-full shadow-sm hover:bg-gray-100 flex items-center justify-center"
+                onClick={() => setQuantity(Math.min(100, quantity + 1))}
+              >
+                +
+              </Button>
+            </div>
           </div>
 
           {/* Select Vendor */}
