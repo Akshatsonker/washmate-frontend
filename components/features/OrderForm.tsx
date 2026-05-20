@@ -88,7 +88,7 @@ export function OrderForm({ userId, userName, userMobile, userAddress, userRoom,
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Service Type *</label>
             <Select value={serviceType} onValueChange={(v) => setServiceType(v)}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full [&>span]:truncate">
                 <SelectValue placeholder="Select a service" />
               </SelectTrigger>
               <SelectContent>
@@ -120,7 +120,7 @@ export function OrderForm({ userId, userName, userMobile, userAddress, userRoom,
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Select Vendor *</label>
             <Select value={selectedVendorId} onValueChange={setSelectedVendorId}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full [&>span]:truncate">
                 <SelectValue placeholder="Choose a vendor" />
               </SelectTrigger>
               <SelectContent>
