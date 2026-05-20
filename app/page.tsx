@@ -1,181 +1,51 @@
 'use client';
 
-import { storage } from '@/lib/utils/storage';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useAuth } from '@/lib/hooks/useAuth';
-import { initializeMockData } from '@/lib/utils/mockData';
-import { clearSession } from '@/lib/hooks/useAuth';
-export default function LoginPage() {
-  const router = useRouter();
-  const { isAuthenticated, login } = useAuth();
+import Link from 'next/link';
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [roomNumber, setRoomNumber] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [isStandalone, setIsStandalone] = useState(false);
-
-  useEffect(() => {
-    // ✅ Clear session and init data ONCE on mount
-    clearSession();
-    initializeMockData();
-
-    // Check if running as PWA
-    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) {
-      setIsStandalone(true);
-    }
-  }, []); // ← empty deps, runs only once
-
-  useEffect(() => {
-    // ✅ Separate effect — redirect if already logged in
-    if (isAuthenticated) {
-      router.push('/dashboard');
-    }
-  }, [isAuthenticated, router]);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const success = await login(email, password, mobileNumber, address, roomNumber);
-      if (success) {
-        router.replace('/dashboard');
-      } else {
-        setError('Invalid email or password');
-      }
-    } catch (err) {
-      console.error(err);
-      setError('Something went wrong. Try again.');
-    }
-
-    setLoading(false);
-  };
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-2">
-          <div className="flex justify-center mb-4">
-            <Image src="/logo.jpeg" alt="WashMate Logo" width={250} height={80} className="w-auto h-24 object-contain" priority />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden p-8 text-center">
+        
+        <div className="flex justify-center mb-6">
+          <Image 
+            src="/logo.jpeg" 
+            alt="WashMate Logo" 
+            width={200} 
+            height={60} 
+            className="w-auto h-20 object-contain" 
+            priority 
+          />
+        </div>
+        
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome to WashMate</h1>
+        <p className="text-gray-600 mb-8">Scan to sign in or download our app for the best experience.</p>
+
+        <div className="flex flex-col items-center justify-center mb-8">
+          <div className="p-3 bg-white rounded-xl border-2 border-indigo-100 shadow-sm inline-block">
+            <Image 
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://washmate-frontend-9f59.vercel.app/signin`}
+              alt="Scan to Sign In"
+              width={200}
+              height={200}
+              className="rounded-lg"
+              unoptimized
+            />
           </div>
-          <CardTitle className="text-center">Welcome Back</CardTitle>
-          <CardDescription className="text-center">
-            Sign in to manage your laundry orders
-          </CardDescription>
-        </CardHeader>
+          <p className="text-sm text-indigo-600 font-medium mt-4">Point your phone camera here</p>
+        </div>
 
-        <CardContent className="space-y-6">
-          <form onSubmit={handleLogin} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+        <div className="pt-6 border-t border-gray-100">
+          <p className="text-sm text-gray-500 mb-3">Already on mobile or prefer browser?</p>
+          <Link href="/signin">
+            <button className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors">
+              Continue to Sign In
+            </button>
+          </Link>
+        </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <Input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Mobile Number</label>
-              <Input
-                type="tel"
-                placeholder="Your mobile number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Address</label>
-              <Input
-                type="text"
-                placeholder="Your address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Room Number</label>
-              <Input
-                type="text"
-                placeholder="Your room number"
-                value={roomNumber}
-                onChange={(e) => setRoomNumber(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Password</label>
-              <Input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <Button type="submit" className="w-full" disabled={loading} suppressHydrationWarning>
-              {loading ? 'Signing in...' : 'Sign In'}
-            </Button>
-          </form>
-
-          {/* Hint for users */}
-          <p className="text-sm text-center mt-4">
-            Don’t have an account?{' '}
-            <a href="/register" className="text-blue-600 underline">
-              Register here
-            </a>
-          </p>
-
-          {!isStandalone && (
-            <div className="mt-4 pt-4 border-t border-gray-200 text-center">
-              <p className="text-sm text-gray-600 mb-4">Want a better experience?</p>
-
-              <div className="hidden sm:flex flex-col items-center mb-4">
-                <div className="bg-white p-2 rounded-lg border border-gray-200 shadow-sm">
-                  <Image 
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://washmate-frontend-9f59.vercel.app/download`}
-                    alt="Scan to Download App"
-                    width={100}
-                    height={100}
-                    className="rounded"
-                    unoptimized
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-2">Scan QR to install app on phone</p>
-              </div>
-
-              <a href="/download" className="inline-flex items-center justify-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-md font-medium text-sm hover:bg-indigo-100 transition-colors">
-                📱 Download WashMate App
-              </a>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      </div>
     </div>
   );
 }

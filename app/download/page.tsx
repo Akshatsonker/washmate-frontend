@@ -38,7 +38,7 @@ export default function DownloadPage() {
     if (outcome === 'accepted') {
       console.log('User accepted the install prompt');
       setTimeout(() => {
-        window.location.href = '/';
+        window.location.href = '/signin';
       }, 1500);
     } else {
       console.log('User dismissed the install prompt');
@@ -97,7 +97,7 @@ export default function DownloadPage() {
             </div>
           )}
           
-          <a href="/" className="text-sm text-blue-600 hover:underline mt-4">
+          <a href="/signin" className="text-sm text-blue-600 hover:underline mt-4">
             Skip for now and go to Login
           </a>
         </CardContent>
