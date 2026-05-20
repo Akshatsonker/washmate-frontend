@@ -1,9 +1,34 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/hooks/useAuth';
 
 export default function LandingPage() {
+  const router = useRouter();
+  const { isAuthenticated, isLoaded } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    
+    // Only redirect once auth state is loaded from localStorage
+    if (!isLoaded) return;
+    
+    if (isAuthenticated) {
+      router.replace('/dashboard');
+    } else if (typeof window !== 'undefined') {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
+      if (isStandalone) {
+        router.replace('/signin');
+      }
+    }
+  }, [isAuthenticated, isLoaded, router]);
+
+  if (!mounted || !isLoaded || isAuthenticated) return null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden p-8 text-center">

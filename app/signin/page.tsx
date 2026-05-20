@@ -14,7 +14,7 @@ import { clearSession } from '@/lib/hooks/useAuth';
 
 export default function SignInPage() {
   const router = useRouter();
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, isLoaded, login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,10 +37,12 @@ export default function SignInPage() {
 
   useEffect(() => {
     // ✅ Separate effect — redirect if already logged in
-    if (isAuthenticated) {
+    if (isLoaded && isAuthenticated) {
       router.push('/dashboard');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, isLoaded, router]);
+
+  if (!isLoaded || isAuthenticated) return null;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

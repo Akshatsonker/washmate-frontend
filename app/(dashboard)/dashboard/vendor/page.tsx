@@ -149,7 +149,7 @@ export default function VendorDashboard() {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="font-semibold text-gray-900">${order.price.toFixed(2)}</p>
+                            <p className="font-semibold text-gray-900">₹{order.price.toFixed(2)}</p>
                             <p className="text-sm text-gray-500">{order.quantity} items</p>
                           </div>
                         </div>

@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { isAuthenticated, register } = useAuth();
+  const { isAuthenticated, isLoaded, register } = useAuth();
 
   const [form, setForm] = useState({ name: '', email: '', password: '', mobileNumber: '', address: '', roomNumber: '' });
   const [loading, setLoading] = useState(false);
@@ -19,8 +19,10 @@ export default function RegisterPage() {
 
   // If already logged in, redirect away
   useEffect(() => {
-    if (isAuthenticated) router.push('/dashboard');
-  }, [isAuthenticated, router]);
+    if (isLoaded && isAuthenticated) router.push('/dashboard');
+  }, [isAuthenticated, isLoaded, router]);
+
+  if (!isLoaded || isAuthenticated) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
