@@ -75,7 +75,7 @@ export default function StudentHistoryPage() {
               <Card>
                 <CardContent className="pt-6 text-center">
                   <p className="text-3xl font-bold text-blue-600">
-                    ${orders
+                    ₹{orders
                       .filter((o: any) => o.status === 'delivered')
                       .reduce((sum: number, o: any) => sum + (o.price || 0), 0)
                       .toFixed(2)}
