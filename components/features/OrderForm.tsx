@@ -126,7 +126,7 @@ export function OrderForm({ userId, userName, userMobile, userAddress, userRoom,
               <SelectContent>
                 {mockVendors.map((vendor) => (
                   <SelectItem key={vendor.id} value={vendor.id}>
-                    {vendor.name} (⭐ {vendor.rating} • {vendor.location})
+                    {vendor.name}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -148,12 +148,17 @@ export function OrderForm({ userId, userName, userMobile, userAddress, userRoom,
           {selectedVendor && (
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <p className="text-sm font-medium text-blue-900">Selected Vendor</p>
-              <p className="text-sm text-blue-700 mt-1">{selectedVendor.name}</p>
-              <p className="text-xs text-blue-600 mt-1">
-                Hours: {selectedVendor.operatingHours.open} - {selectedVendor.operatingHours.close}
+              <p className="text-sm font-semibold text-blue-700 mt-2">
+                {selectedVendor.name} <span className="font-normal text-blue-600">(⭐ {selectedVendor.rating})</span>
               </p>
-              <p className="text-xs text-blue-600">
-                Acceptance Rate: {(selectedVendor.acceptanceRate * 100).toFixed(0)}%
+              <p className="text-xs text-blue-600 mt-1 flex items-center gap-1">
+                📍 {selectedVendor.location}
+              </p>
+              <p className="text-xs text-blue-600 mt-1 flex items-center gap-1">
+                🕒 {selectedVendor.operatingHours.open} - {selectedVendor.operatingHours.close}
+              </p>
+              <p className="text-xs text-blue-600 mt-1">
+                ✓ Acceptance Rate: {(selectedVendor.acceptanceRate * 100).toFixed(0)}%
               </p>
             </div>
           )}
