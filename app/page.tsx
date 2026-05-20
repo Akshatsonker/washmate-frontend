@@ -10,24 +10,25 @@ export default function LandingPage() {
   const router = useRouter();
   const { isAuthenticated, isLoaded } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
+    setIsStandalone(standalone);
+
     // Only redirect once auth state is loaded from localStorage
     if (!isLoaded) return;
     
     if (isAuthenticated) {
       router.replace('/dashboard');
-    } else if (typeof window !== 'undefined') {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
-      if (isStandalone) {
-        router.replace('/signin');
-      }
+    } else if (standalone) {
+      router.replace('/signin');
     }
   }, [isAuthenticated, isLoaded, router]);
 
-  if (!mounted || !isLoaded || isAuthenticated) return null;
+  if (!mounted || !isLoaded || isAuthenticated || isStandalone) return null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
